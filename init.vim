@@ -6,18 +6,35 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
+Plug 'mattn/emmet-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'BurntSushi/ripgrep', { 'do': 'cargo install ripgrep' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 call plug#end()
 " Theme
 set termguicolors
 syntax on
 colorscheme dracula
+" set airline theme
+let g:airline_theme='solarized'
+let g:airline_solairized_bg='dark'
+let g:airline_powerline_fonts = 1
 
 
 " Plugin Init
+let g:airline#extensions#tabline#enabled = 0
 lua require("nvim-tree").setup()
 lua require("bufferline").setup{}
 nnoremap <silent>[b :BufferLineCycleNext<CR>
 nnoremap <silent>]b :BufferLineCyclePrev<CR>
+nnoremap <silent>bc :BufferLinePickClose<CR>
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 let g:ale_fixers = {
@@ -34,7 +51,6 @@ let g:ale_fixers = {
 \   'rust': ['rustfmt']
 \}
 let g:ale_fix_on_save = 1
-
 
 " CoC Config
 inoremap <silent><expr> <TAB>
@@ -72,7 +88,9 @@ set autoindent
 inoremap kj <Esc>
 
 " Keybind for file explorer
-nnoremap <leader>f :NvimTreeOpen<CR>
+set splitright
+nnoremap <leader>f :NvimTreeToggle<CR>
+nnoremap <leader>F :NvimTreeFindFile<CR>
 
 " default file encoding
 set encoding=utf-8
@@ -96,3 +114,23 @@ set incsearch
 
 " Mouse support
 set mouse=a
+
+
+
+" Custom keybinds
+nnoremap <silent>[l :lnext<CR>
+nnoremap <silent>]l :lprev<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap ev :e $MYVIMRC<CR>
+
+nnoremap rv :w!<Esc>:source $MYVIMRC<CR>
+
+
+" Telescope
+
+nnoremap <leader>ff <cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<CR>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
