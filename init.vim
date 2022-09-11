@@ -8,7 +8,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'mattn/emmet-vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-commentary'
+Plug 'preservim/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -17,11 +17,13 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'BurntSushi/ripgrep', { 'do': 'cargo install ripgrep' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 call plug#end()
 " Theme
 set termguicolors
 syntax on
 colorscheme dracula
+
 " set airline theme
 let g:airline_theme='solarized'
 let g:airline_solairized_bg='dark'
@@ -29,12 +31,14 @@ let g:airline_powerline_fonts = 1
 
 
 " Plugin Init
-let g:airline#extensions#tabline#enabled = 0
+filetype plugin on
+"let g:airline#extensions#tabline#enabled = 0
 lua require("nvim-tree").setup()
 lua require("bufferline").setup{}
 nnoremap <silent>[b :BufferLineCycleNext<CR>
 nnoremap <silent>]b :BufferLineCyclePrev<CR>
 nnoremap <silent>bc :BufferLinePickClose<CR>
+nnoremap <silent>bp :BufferLinePick<CR>
 imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 let g:ale_fixers = {
@@ -134,3 +138,9 @@ nnoremap <leader>ff <cmd>Telescope find_files find_command=rg,--ignore,--hidden,
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ga :Git add %<cr> 
+nnoremap <leader>gaa <cmd>Git add .<cr>
+nnoremap <leader>gs <cmd>Git status<cr>
+nnoremap <leader>gc :Git commit -m ""<Left>
+nnoremap <leader>gp :Git push
+nnoremap <leader>gl :Git pull<cr>
