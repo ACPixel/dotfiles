@@ -3,5 +3,5 @@
 This is a ever-expanding collection of my personal dotfiles and config files.
 
 
-## init.vim
-This vim config uses [Vim-Plug](https://github.com/junegunn/vim-plug) to manage plugins. So make sure that's installed then run the `PlugInstall` command.
+## NeoVim
+My NeoVim config uses [Packer](https://github.com/wbthomason/packer.nvim) for managing plugins, if you intend on using this config, please install Packer. (the config will attempt to do this for you on first boot but may not always succeed)
