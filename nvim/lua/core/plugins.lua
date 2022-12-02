@@ -186,6 +186,52 @@ local pixel_plugins = {
                 pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()
             })
         end
+    },
+
+    -- Window Picker
+    ["s1n7ax/nvim-window-picker"] = {
+        config = function()
+            require("configs.window-picker")
+        end
+    },
+
+    -- Parenthesis highlighting
+    ["p00f/nvim-ts-rainbow"] = {
+        after = "nvim-treesitter"
+    },
+
+    -- Autopairs
+    ["windwp/nvim-autopairs"] = {
+        after = "nvim-cmp"
+    },
+
+    -- Smarter splits
+    ["mrjones2014/smart-splits.nvim"] = {
+        config = function()
+            require "configs.smart-splits"
+        end
+    },
+
+    -- Color highlighting
+    ["NvChad/nvim-colorizer.lua"] = {
+        event = "BufEnter",
+        config = function()
+            require "configs.colorizer"
+        end
+    },
+
+    -- Indentation
+    ["lukas-reineke/indent-blankline.nvim"] = {
+        event = "BufEnter",
+        config = function()
+            require "configs.indent-line"
+        end
+    },
+
+    -- MarkDown preview
+    ["iamcco/markdown-preview.nvim"] = {
+        run = "cd app && yarn install",
+        ft = "markdown"
     }
 
 }

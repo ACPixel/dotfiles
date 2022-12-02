@@ -5,7 +5,7 @@ local cmd = vim.cmd
 local setkey = vim.api.nvim_set_keymap
 
 -- Set leader key
-g.mapleader = ' '
+g.mapleader = " "
 
 -- Telescope mappings
 setkey("n", "<leader>ff", ":Telescope find_files<CR>", {
@@ -26,7 +26,7 @@ setkey("n", "<leader>fh", ":Telescope help_tags<CR>", {
 })
 
 -- NeoTree mappings
-setkey("n", "<leader>n", ":Neotree filesystem<CR>", {
+setkey("n", "<leader>nn", ":Neotree filesystem<CR>", {
     noremap = true,
     silent = true
 })
@@ -92,3 +92,23 @@ setkey("n", "gR", "<cmd>TroubleToggle lsp_references<cr>", {
     noremap = true,
     silent = true
 })
+
+-- Window Picker
+vim.keymap.set("n", "<leader>w", function()
+    local picker = require("window-picker")
+    local picked_window_id = picker.pick_window() or vim.api.nvim_get_current_win()
+    vim.api.nvim_set_current_win(picked_window_id)
+end, {
+    desc = "Pick a window"
+})
+
+-- resizing splits
+vim.keymap.set("n", "<A-h>", require("smart-splits").resize_left)
+vim.keymap.set("n", "<A-j>", require("smart-splits").resize_down)
+vim.keymap.set("n", "<A-k>", require("smart-splits").resize_up)
+vim.keymap.set("n", "<A-l>", require("smart-splits").resize_right)
+-- moving between splits
+vim.keymap.set("n", "<C-h>", require("smart-splits").move_cursor_left)
+vim.keymap.set("n", "<C-j>", require("smart-splits").move_cursor_down)
+vim.keymap.set("n", "<C-k>", require("smart-splits").move_cursor_up)
+vim.keymap.set("n", "<C-l>", require("smart-splits").move_cursor_right)

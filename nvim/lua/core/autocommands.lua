@@ -62,3 +62,13 @@ cmd("VimEnter", {
         end
     end
 })
+
+-- Set the background color to transparent
+-- autocmd ColorScheme * highlight! Normal ctermbg=NONE guibg=NONE
+cmd("ColorScheme", {
+    desc = "Set the background color to transparent",
+    group = "alpha_settings",
+    callback = function()
+        vim.cmd [[highlight! Normal ctermbg=NONE guibg=NONE]]
+    end
+})
